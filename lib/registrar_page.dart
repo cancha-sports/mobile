@@ -9,9 +9,9 @@ class TelaRegistrar extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController nomeController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController birthController = TextEditingController();
     final TextEditingController senhaController = TextEditingController();
-    final TextEditingController confirmarSenhaController =
-        TextEditingController();
 
     return Scaffold(
       appBar: AppBar(title: const Text("Registrar")),
@@ -23,7 +23,7 @@ class TelaRegistrar extends StatelessWidget {
             TextField(
               controller: nomeController,
               decoration: const InputDecoration(
-                labelText: "Nome Completo",
+                labelText: "Nome completo",
                 border: OutlineInputBorder(),
               ),
             ),
@@ -38,6 +38,42 @@ class TelaRegistrar extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: phoneController,
+              decoration: const InputDecoration(
+                labelText: "Telefone",
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: birthController, // ADICIONE ESTE CONTROLLER
+              decoration: const InputDecoration(
+                labelText: "Data de nascimento",
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.calendar_today),
+              ),
+              readOnly: true,
+              onTap: () async {
+                final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now().subtract(
+                    const Duration(days: 365 * 18),
+                  ),
+                  firstDate: DateTime(DateTime.now().year - 120),
+                  lastDate: DateTime.now().subtract(
+                    const Duration(days: 365 * 18),
+                  ),
+                );
+                if (picked != null) {
+                  String formattedDate =
+                      "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+                  birthController.text = formattedDate;
+                }
+              },
+            ),
+            const SizedBox(height: 16),
+            TextField(
               controller: senhaController,
               obscureText: true,
               decoration: const InputDecoration(
@@ -45,32 +81,17 @@ class TelaRegistrar extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: confirmarSenhaController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: "Confirmar Senha",
-                border: OutlineInputBorder(),
-              ),
-            ),
+
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () async {
-                if (senhaController.text != confirmarSenhaController.text) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('As senhas não coincidem')),
-                  );
-                  return;
-                }
-
                 try {
                   await ApiService.post(ApiConfig.register, {
                     'name': nomeController.text,
                     'email': emailController.text,
+                    'phone': phoneController.text,
+                    'birth_date': birthController.text,
                     'password': senhaController.text,
-                    'phone': '',
-                    'birth_date': '2000-01-01',
                     'role_id': 2,
                   });
 
