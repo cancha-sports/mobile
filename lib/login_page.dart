@@ -237,7 +237,7 @@ class CanchaLoginPage extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        "Entrar na Conta",
+                        "Entrar na conta",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

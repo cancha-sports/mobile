@@ -66,7 +66,7 @@ class TelaRegistrar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Nome Completo *",
+                        "Nome completo *",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -203,7 +203,7 @@ class TelaRegistrar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Data de Nascimento *",
+                        "Data de nascimento *",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
