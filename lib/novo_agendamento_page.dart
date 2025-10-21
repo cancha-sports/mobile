@@ -381,13 +381,13 @@ class _TelaNovoAgendamentoState extends State<TelaNovoAgendamento> {
 
   String _formatarDiasTrabalho(List<dynamic> workingDays) {
     final dias = {
-      1: 'Dom',
-      2: 'Seg',
-      3: 'Ter',
-      4: 'Qua',
-      5: 'Qui',
-      6: 'Sex',
-      7: 'Sáb',
+      0: 'Dom',
+      1: 'Seg',
+      2: 'Ter',
+      3: 'Qua',
+      4: 'Qui',
+      5: 'Sex',
+      6: 'Sáb',
     };
 
     return workingDays.map((day) => dias[day] ?? '?').join(', ');
